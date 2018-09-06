@@ -42,9 +42,6 @@ public class VueFamille extends Scene {
 		
 		panneau.getChildren().add(grilleFamille);
 		
-		//test d'affichage d'une famille
-		Famille familleTest = new Famille("trembley", "Canadienne", "602 avenu saint redempteur Matane"," classe moyenne");
-		afficherFamille(familleTest);
 		
 		
 		

@@ -24,16 +24,13 @@ public class VueListeFamille extends Scene {
 		grilleFamille = new GridPane();
 		
 		
-		List<Famille> listeFamilleTest = new ArrayList<Famille>();
-		listeFamilleTest.add(new Famille("dupont","FRancaise","62 boulevard perdu, Paris","Classe moyenne"));
-		listeFamilleTest.add(new Famille("trembley", "Canadienne", "602 avenu saint redempteur Matane"," classe moyenne"));
-		afficherListeFamille(listeFamilleTest);
+		
 		
 		panneau.getChildren().add(grilleFamille);
 		
 	}
 	
-	private void afficherListeFamille(List<Famille> listeFamille) {
+	public void afficherListeFamille(List<Famille> listeFamille) {
 		
 		grilleFamille.getChildren().clear();
 		
