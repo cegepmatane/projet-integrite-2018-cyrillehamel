@@ -8,17 +8,18 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modele.Famille;
 
-public class VueFamille extends Application {
+public class VueFamille extends Scene {
 
 	protected Label valeurNom = null ; 
 	protected Label valeurNationnalite = null;
 	protected Label valeurAdresse = null;
 	protected Label valeurClasseSociale = null;
 	
-	@Override
-	public void start(Stage stade) throws Exception {
+	public VueFamille() {
+		super(new Pane(), 400,400);
+		Pane panneau = (Pane) this.getRoot();
 		
-		Pane panneau = new Pane();	
+		
 		GridPane grilleFamille = new GridPane();
 		
 		valeurNom = new Label("");
@@ -40,13 +41,12 @@ public class VueFamille extends Application {
 		
 		
 		panneau.getChildren().add(grilleFamille);
-		stade.setScene(new Scene(panneau, 400, 400));
 		
 		//test d'affichage d'une famille
 		Famille familleTest = new Famille("trembley", "Canadienne", "602 avenu saint redempteur Matane"," classe moyenne");
 		afficherFamille(familleTest);
 		
-		stade.show();
+		
 		
 	}
 	public void afficherFamille(Famille famille)

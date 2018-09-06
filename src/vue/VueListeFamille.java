@@ -11,14 +11,15 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modele.Famille;
 
-public class VueListeFamille extends Application {
+public class VueListeFamille extends Scene {
 
 	private GridPane grilleFamille = null ;
 	
-	@Override
-	public void start(Stage stade) throws Exception {
-		
-		Pane panneau = new Pane();	
+	
+	public VueListeFamille() {
+		super(new Pane(), 800,400);
+		Pane panneau = (Pane) this.getRoot();
+
 		
 		grilleFamille = new GridPane();
 		
@@ -29,9 +30,6 @@ public class VueListeFamille extends Application {
 		afficherListeFamille(listeFamilleTest);
 		
 		panneau.getChildren().add(grilleFamille);
-		stade.setScene(new Scene(panneau, 800, 400));
-		
-		stade.show();
 		
 	}
 	

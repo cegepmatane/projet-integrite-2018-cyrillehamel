@@ -9,17 +9,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class VueAjouterFamille extends Application {
+public class VueAjouterFamille extends Scene  {
 
 	protected TextField valeurNom;
 	protected TextField valeurNationnalite;
 	protected TextField valeurAdresse;
 	protected TextField valeurClasseSociale;
 	
-	@Override
-	public void start(Stage stade) throws Exception {
+	public VueAjouterFamille() {
+		super(new VBox(), 400, 400);
+		VBox panneau = (VBox) this.getRoot();
 		
-		VBox panneau = new VBox();	
 		GridPane grilleFamille = new GridPane();
 		
 		valeurNom = new TextField();
@@ -40,9 +40,7 @@ public class VueAjouterFamille extends Application {
 		
 		panneau.getChildren().add(new Label("Ajouter une famille")); 
 		panneau.getChildren().add(grilleFamille);
-		panneau.getChildren().add(new Button("Enregistrer"));
-		stade.setScene(new Scene(panneau, 400, 400));
-		stade.show();		
+		panneau.getChildren().add(new Button("Enregistrer"));		
 	}
 
 }
