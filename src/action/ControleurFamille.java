@@ -39,7 +39,7 @@ public class ControleurFamille {
 		this.vueFamille.afficherFamille(familleTest);
 		
 		this.navigateur.naviguerVersVueListeFamille();		
-		//this.navigateur.naviguerVersVueAjouterFamille();		
+		this.navigateur.naviguerVersVueAjouterFamille();		
 	}
 	
 	private static ControleurFamille instance = null;

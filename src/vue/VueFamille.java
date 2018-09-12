@@ -1,5 +1,6 @@
 package vue;
 
+import action.ControleurFamille;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,7 +15,7 @@ public class VueFamille extends Scene {
 	protected Label valeurNationnalite = null;
 	protected Label valeurAdresse = null;
 	protected Label valeurClasseSociale = null;
-	
+	private ControleurFamille controleur= null;
 	public VueFamille() {
 		super(new Pane(), 400,400);
 		Pane panneau = (Pane) this.getRoot();
@@ -52,6 +53,9 @@ public class VueFamille extends Scene {
 		this.valeurAdresse.setText(famille.getAdresse());
 		this.valeurClasseSociale.setText(famille.getClasseSociale());
 		this.valeurNationnalite.setText(famille.getNationalite());	
+	}
+	public void setControleur(ControleurFamille controleur) {
+		this.controleur=controleur;
 	}
 	
 

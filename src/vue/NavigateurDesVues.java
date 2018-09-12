@@ -44,6 +44,9 @@ public class NavigateurDesVues extends Application {
 		
 		this.controleur = ControleurFamille.getInstance();
 		this.controleur.activerVues(this);
+		this.vueAjouterFamille.setControleur(controleur);
+		this.vueListeFamille.setControleur(controleur);
+		this.vueFamille.setControleur(controleur);
 	}
 	public void naviguerVersVueListeFamille() {
 		stade.setScene(this.vueListeFamille);

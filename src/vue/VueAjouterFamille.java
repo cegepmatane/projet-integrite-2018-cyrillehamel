@@ -1,5 +1,6 @@
 package vue;
 
+import action.ControleurFamille;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ public class VueAjouterFamille extends Scene  {
 	protected TextField valeurNationnalite;
 	protected TextField valeurAdresse;
 	protected TextField valeurClasseSociale;
+	private ControleurFamille controleur = null;
 	
 	public VueAjouterFamille() {
 		super(new VBox(), 400, 400);
@@ -43,4 +45,7 @@ public class VueAjouterFamille extends Scene  {
 		panneau.getChildren().add(new Button("Enregistrer"));		
 	}
 
+	public void setControleur(ControleurFamille controleur) {
+		this.controleur=controleur;
+	}
 }

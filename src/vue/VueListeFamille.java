@@ -3,6 +3,7 @@ package vue;
 import java.util.ArrayList;
 import java.util.List;
 
+import action.ControleurFamille;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,7 +15,7 @@ import modele.Famille;
 public class VueListeFamille extends Scene {
 
 	private GridPane grilleFamille = null ;
-	
+	private ControleurFamille controleur = null;
 	
 	public VueListeFamille() {
 		super(new Pane(), 800,400);
@@ -49,6 +50,10 @@ public class VueListeFamille extends Scene {
 		position++;
 		}		
 
+	}
+	
+	public void setControleur(ControleurFamille controleur) {
+		this.controleur=controleur;
 	}
 
 }
