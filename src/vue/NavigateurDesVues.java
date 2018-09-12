@@ -3,32 +3,28 @@ package vue;
 import java.util.ArrayList;
 import java.util.List;
 
+import action.ControleurFamille;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import modele.Famille;
 
 public class NavigateurDesVues extends Application {
 
+	private Stage stade;
 	private VueAjouterFamille vueAjouterFamille;
 	private VueListeFamille vueListeFamille;
 	private VueFamille vueFamille;
+	private ControleurFamille controleur;
 	
 	public  NavigateurDesVues() {
+		
 		this.vueAjouterFamille = new VueAjouterFamille();
 		this.vueListeFamille = new VueListeFamille();
 		this.vueFamille = new VueFamille();
 		
 		
-		//test vuelisteFamille
-		List<Famille> listeFamilleTest = new ArrayList<Famille>();
-		listeFamilleTest.add(new Famille("dupont","FRancaise","62 boulevard perdu, Paris","Classe moyenne"));
-		listeFamilleTest.add(new Famille("trembley", "Canadienne", "602 avenu saint redempteur Matane"," classe moyenne"));
-		this.vueListeFamille.afficherListeFamille(listeFamilleTest);
 		
-		//test vueFamille
-		//test d'affichage d'une famille
-		Famille familleTest = new Famille("trembley", "Canadienne", "602 avenu saint redempteur Matane"," classe moyenne");
-		this.vueFamille.afficherFamille(familleTest);
+		
 		
 	}
 	
@@ -50,6 +46,20 @@ public class NavigateurDesVues extends Application {
 		stade.setScene(this.vueListeFamille);
 		stade.setScene(this.vueFamille);
 		stade.show();
+		this.controleur = new ControleurFamille(this);
 	}
-
+	public void naviguerVersVueListeFamille() {
+		stade.setScene(this.vueListeFamille);
+		stade.show();
+	}
+	
+	public void naviguerVersVueFamille() {
+		stade.setScene(this.vueFamille);
+		stade.show();
+	}
+	
+	public void naviguerVersVueAjouterFamille() {
+		stade.setScene(this.vueAjouterFamille);
+		stade.show();
+	}
 }
