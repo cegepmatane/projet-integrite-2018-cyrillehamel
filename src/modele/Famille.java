@@ -2,6 +2,7 @@ package modele;
 
 public class Famille {
 	
+	protected int id;
 	protected String nom;
 	protected String nationalite;
 	protected String adresse ;
@@ -33,6 +34,14 @@ public class Famille {
 
 	public String getClasseSociale() {
 		return classeSociale;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setNom(String nom) {
