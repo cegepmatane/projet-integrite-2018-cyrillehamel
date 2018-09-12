@@ -11,20 +11,16 @@ import modele.Famille;
 public class NavigateurDesVues extends Application {
 
 	private Stage stade;
-	private VueAjouterFamille vueAjouterFamille;
-	private VueListeFamille vueListeFamille;
-	private VueFamille vueFamille;
-	private ControleurFamille controleur;
+	private VueAjouterFamille vueAjouterFamille = null;
+	private VueListeFamille vueListeFamille = null;
+	private VueFamille vueFamille =null; 
+	private ControleurFamille controleur =null;
 	
 	public  NavigateurDesVues() {
 		
 		this.vueAjouterFamille = new VueAjouterFamille();
 		this.vueListeFamille = new VueListeFamille();
 		this.vueFamille = new VueFamille();
-		
-		
-		
-		
 		
 	}
 	
@@ -42,11 +38,12 @@ public class NavigateurDesVues extends Application {
 
 	@Override
 	public void start(Stage stade) throws Exception {
-		stade.setScene(this.vueAjouterFamille);
-		stade.setScene(this.vueListeFamille);
-		stade.setScene(this.vueFamille);
-		stade.show();
-		this.controleur = new ControleurFamille(this);
+		this.stade = stade;
+		this.stade.setScene(null);
+		this.stade.show();
+		
+		this.controleur = ControleurFamille.getInstance();
+		this.controleur.activerVues(this);
 	}
 	public void naviguerVersVueListeFamille() {
 		stade.setScene(this.vueListeFamille);
