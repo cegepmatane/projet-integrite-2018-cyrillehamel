@@ -15,7 +15,7 @@ public class ControleurFamille {
 	private VueFamille vueFamille;
 	private VueListeFamille vueListeFamille;
 	private VueAjouterFamille vueAjouterFamille;
-	
+	FamilleDAO familleDAO =null;
 	public ControleurFamille() {
 		
 	}
@@ -26,8 +26,8 @@ public class ControleurFamille {
 		this.vueFamille = navigateur.getVueFamille();
 		this.vueListeFamille = navigateur.getVueListeFamille();
 		this.vueAjouterFamille = navigateur.getVueAjouterFamille();
+		this.familleDAO = new FamilleDAO();
 		
-		FamilleDAO familleDAO =new FamilleDAO();
 		//test vuelisteFamille
 		List<Famille> listeFamilleTest =familleDAO.listerfamilles();
 		
@@ -48,6 +48,11 @@ public class ControleurFamille {
 		if(null == instance) instance = new ControleurFamille();
 		return instance;
 	}
-	
+	public void notifierEnregistrerFamille() {
+		System.out.println("ControleurFamille.notifierEnregistrerFamille()");
+		Famille famille=this.navigateur.getVueAjouterFamille().demandeFamille();
+		//this.familleDAO.ajouterFamille();
+		this.navigateur.naviguerVersVueListeFamille();
+	}
 	
 }
