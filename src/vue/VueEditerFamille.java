@@ -62,27 +62,7 @@ public class VueEditerFamille extends Scene  {
 		grilleFamille.add(new Label("Classe Sociale : "), 0, 3);
 		grilleFamille.add(valeurClasseSociale,1, 3);
 		
-		//données TEST
-		List<Personne> listePersonnes = new ArrayList<Personne>();
-		Personne personne;
-		personne = new Personne("jean","07/10/2000","jean@toto.com");
-		listePersonnes.add(personne);
-		personne = new Personne("jeanne","17/11/1980","jeanne@titi.com");
-		listePersonnes.add(personne);
-		personne = new Personne("claude","26/06/1995","claude@gmail.com");
-		listePersonnes.add(personne);
 		
-		// Fin données TEST
-		int item = 0;
-		for(Personne individu : listePersonnes)
-		{
-			this.grilleListePersonne.add(new Label(individu.getPrenom() + ""), 0, item);
-			this.grilleListePersonne.add(new Label(individu.getNaissance() + ""), 1, item);
-			this.grilleListePersonne.add(new Label(individu.getMail() + ""), 2, item);
-			this.grilleListePersonne.add(new Button("Éditer"), 3, item);
-			this.grilleListePersonne.add(new Button("Effacer"), 4, item);
-			item++;
-		}
 		
 		panneau.getChildren().add(new Label("editer une famille")); 
 		panneau.getChildren().add(grilleFamille);
@@ -104,5 +84,17 @@ public class VueEditerFamille extends Scene  {
 		Famille famille= new Famille(this.valeurNom.getText(),this.valeurNationnalite.getText(),this.valeurAdresse.getText(),this.valeurClasseSociale.getText());
 		famille.setId(idFamille);
 		return famille;
+	}
+	public void afficherListePersonnes(List<Personne> listePersonnes) {
+		int item = 0;
+		for(Personne individu : listePersonnes)
+		{
+			this.grilleListePersonne.add(new Label(individu.getPrenom() + ""), 0, item);
+			this.grilleListePersonne.add(new Label(individu.getNaissance() + ""), 1, item);
+			this.grilleListePersonne.add(new Label(individu.getMail() + ""), 2, item);
+			this.grilleListePersonne.add(new Button("Éditer"), 3, item);
+			this.grilleListePersonne.add(new Button("Effacer"), 4, item);
+			item++;
+		}
 	}
 }

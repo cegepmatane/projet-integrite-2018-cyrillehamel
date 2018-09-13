@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import donnee.FamilleDAO;
+import donnee.PersonneDAO;
 import modele.Famille;
+import modele.Personne;
 import vue.NavigateurDesVues;
 import vue.VueAjouterFamille;
 import vue.VueEditerFamille;
@@ -18,6 +20,7 @@ public class ControleurFamille {
 	private VueAjouterFamille vueAjouterFamille;
 	private VueEditerFamille vueEditerFamille;
 	FamilleDAO familleDAO =null;
+	PersonneDAO personneDAO = null ;
 	public ControleurFamille() {
 		
 	}
@@ -30,6 +33,7 @@ public class ControleurFamille {
 		this.vueAjouterFamille = navigateur.getVueAjouterFamille();
 		this.vueEditerFamille = navigateur.getVueEditerFamille();
 		this.familleDAO = new FamilleDAO();
+		this.personneDAO = new PersonneDAO();
 		
 		//test vuelisteFamille
 		List<Famille> listeFamilleTest =familleDAO.listerfamilles();
@@ -42,7 +46,14 @@ public class ControleurFamille {
 		this.vueFamille.afficherFamille(familleTest);
 		
 		this.navigateur.naviguerVersVueListeFamille();		
-		//this.navigateur.naviguerVersVueAjouterFamille();		
+		//this.navigateur.naviguerVersVueAjouterFamille();
+		
+		//données TEST
+				
+				
+				// Fin données TEST
+				this.vueEditerFamille.afficherListePersonnes(this.personneDAO.simulerListePersonnes());
+				
 	}
 	
 	private static ControleurFamille instance = null;
