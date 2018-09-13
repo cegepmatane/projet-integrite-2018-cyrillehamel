@@ -1,6 +1,9 @@
 
 package vue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.omg.CORBA.IdentifierHelper;
 
 import action.ControleurFamille;
@@ -15,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modele.Famille;
+import modele.Personne;
 
 public class VueEditerFamille extends Scene  {
 
@@ -25,6 +29,7 @@ public class VueEditerFamille extends Scene  {
 	protected TextField valeurClasseSociale;
 	private ControleurFamille controleur = null;
 	protected Button actionEnregistrerFamille = null;
+	GridPane grilleListePersonne = new GridPane();
 	public VueEditerFamille() {
 		super(new VBox(), 400, 400);
 		VBox panneau = (VBox) this.getRoot();
@@ -57,9 +62,32 @@ public class VueEditerFamille extends Scene  {
 		grilleFamille.add(new Label("Classe Sociale : "), 0, 3);
 		grilleFamille.add(valeurClasseSociale,1, 3);
 		
+		//données TEST
+		List<Personne> listePersonnes = new ArrayList<Personne>();
+		Personne personne;
+		personne = new Personne("jean","07/10/2000","jean@toto.com");
+		listePersonnes.add(personne);
+		personne = new Personne("jeanne","17/11/1980","jeanne@titi.com");
+		listePersonnes.add(personne);
+		personne = new Personne("claude","26/06/1995","claude@gmail.com");
+		listePersonnes.add(personne);
+		
+		// Fin données TEST
+		int item = 0;
+		for(Personne individu : listePersonnes)
+		{
+			this.grilleListePersonne.add(new Label(individu.getPrenom() + ""), 0, item);
+			this.grilleListePersonne.add(new Label(individu.getNaissance() + ""), 1, item);
+			this.grilleListePersonne.add(new Label(individu.getMail() + ""), 2, item);
+			this.grilleListePersonne.add(new Button("Éditer"), 3, item);
+			this.grilleListePersonne.add(new Button("Effacer"), 4, item);
+			item++;
+		}
+		
 		panneau.getChildren().add(new Label("editer une famille")); 
 		panneau.getChildren().add(grilleFamille);
 		panneau.getChildren().add(actionEnregistrerFamille);
+		panneau.getChildren().add(grilleListePersonne);
 	}
 
 	public void setControleur(ControleurFamille controleur) {
