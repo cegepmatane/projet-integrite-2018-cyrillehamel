@@ -91,10 +91,53 @@ ALTER SEQUENCE famille_id_seq OWNED BY famille.id;
 
 
 --
+-- Name: personne; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE personne (
+    id integer NOT NULL,
+    prenom text,
+    naissance text,
+    mail text,
+    famille integer
+);
+
+
+ALTER TABLE personne OWNER TO postgres;
+
+--
+-- Name: personne_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE personne_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE personne_id_seq OWNER TO postgres;
+
+--
+-- Name: personne_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE personne_id_seq OWNED BY personne.id;
+
+
+--
 -- Name: famille id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY famille ALTER COLUMN id SET DEFAULT nextval('famille_id_seq'::regclass);
+
+
+--
+-- Name: personne id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY personne ALTER COLUMN id SET DEFAULT nextval('personne_id_seq'::regclass);
 
 
 --
@@ -116,11 +159,44 @@ SELECT pg_catalog.setval('famille_id_seq', 9, true);
 
 
 --
+-- Data for Name: personne; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO personne VALUES (1, 'toto', '01/0/1994', 'toto@toto.com', 2);
+INSERT INTO personne VALUES (2, 'jean', '10/12/1998', 'jean@gmail.com', 1);
+INSERT INTO personne VALUES (3, 'michel', '15/11/1989', 'michelTremblay@tutanota.org', 3);
+INSERT INTO personne VALUES (4, 'hefring', '26/06/1992', NULL, 4);
+
+
+--
+-- Name: personne_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('personne_id_seq', 4, true);
+
+
+--
 -- Name: famille famille_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY famille
     ADD CONSTRAINT famille_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: personne personne_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY personne
+    ADD CONSTRAINT personne_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: personne onefamille_to_manypersonne; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY personne
+    ADD CONSTRAINT onefamille_to_manypersonne FOREIGN KEY (famille) REFERENCES famille(id);
 
 
 --
