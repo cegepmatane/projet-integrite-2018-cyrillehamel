@@ -86,9 +86,11 @@ public class VueEditerFamille extends Scene  {
 		return famille;
 	}
 	public void afficherListePersonnes(List<Personne> listePersonnes) {
+		this.grilleListePersonne.getChildren().clear();
 		int item = 0;
 		for(Personne individu : listePersonnes)
 		{
+			
 			this.grilleListePersonne.add(new Label(individu.getPrenom() + ""), 0, item);
 			this.grilleListePersonne.add(new Label(individu.getNaissance() + ""), 1, item);
 			this.grilleListePersonne.add(new Label(individu.getMail() + ""), 2, item);

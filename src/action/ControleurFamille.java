@@ -48,11 +48,8 @@ public class ControleurFamille {
 		this.navigateur.naviguerVersVueListeFamille();		
 		//this.navigateur.naviguerVersVueAjouterFamille();
 		
-		//données TEST
+		
 				
-				
-				// Fin données TEST
-				this.vueEditerFamille.afficherListePersonnes(this.personneDAO.simulerListePersonnes());
 				
 	}
 	
@@ -83,7 +80,7 @@ public class ControleurFamille {
 	public void notifierNaviguerEditerFamille(int idFamille)
 	{
 		System.out.println("ControleurMouton.notifierEditerFamille()");
-		
+		this.vueEditerFamille.afficherListePersonnes(this.personneDAO.listerPersonnes(idFamille));
 		this.vueEditerFamille.afficherFamille(this.familleDAO.recupererFamille(idFamille));
 		this.navigateur.naviguerVersVueEditerFamille();
 		
