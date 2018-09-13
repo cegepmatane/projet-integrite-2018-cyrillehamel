@@ -112,7 +112,7 @@ INSERT INTO famille VALUES (5, 'hamel', 'francaise', '845 boulevard dunoix rouen
 -- Name: famille_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('famille_id_seq', 6, true);
+SELECT pg_catalog.setval('famille_id_seq', 9, true);
 
 
 --

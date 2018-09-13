@@ -14,6 +14,7 @@ public class NavigateurDesVues extends Application {
 	private VueAjouterFamille vueAjouterFamille = null;
 	private VueListeFamille vueListeFamille = null;
 	private VueFamille vueFamille =null; 
+	private VueEditerFamille vueEditerFamille = null;
 	private ControleurFamille controleur =null;
 	
 	public  NavigateurDesVues() {
@@ -21,13 +22,16 @@ public class NavigateurDesVues extends Application {
 		this.vueAjouterFamille = new VueAjouterFamille();
 		this.vueListeFamille = new VueListeFamille();
 		this.vueFamille = new VueFamille();
-		
+		this.vueEditerFamille = new VueEditerFamille();
 	}
 	
 	public VueAjouterFamille getVueAjouterFamille() {
 		return vueAjouterFamille;
 	}
-
+	
+	public VueEditerFamille getVueEditerFamille() {
+		return vueEditerFamille;
+	}
 	public VueListeFamille getVueListeFamille() {
 		return vueListeFamille;
 	}
@@ -47,6 +51,7 @@ public class NavigateurDesVues extends Application {
 		this.vueAjouterFamille.setControleur(controleur);
 		this.vueListeFamille.setControleur(controleur);
 		this.vueFamille.setControleur(controleur);
+		this.vueEditerFamille.setControleur(controleur);
 	}
 	public void naviguerVersVueListeFamille() {
 		stade.setScene(this.vueListeFamille);
@@ -60,6 +65,10 @@ public class NavigateurDesVues extends Application {
 	
 	public void naviguerVersVueAjouterFamille() {
 		stade.setScene(this.vueAjouterFamille);
+		stade.show();
+	}
+	public void naviguerVersVueEditerFamille() {
+		stade.setScene(this.vueEditerFamille);
 		stade.show();
 	}
 }

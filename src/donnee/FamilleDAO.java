@@ -68,16 +68,52 @@ public class FamilleDAO {
 	{
 		System.out.println("FamilleDAO.ajouterFamille()");
 		try {
-			Statement requeteAjouterMouton = connection.createStatement();
+			Statement requeteAjouterFamille = connection.createStatement();
 			
-			String sqlAjouterMouton = "INSERT into famille(nom, nationalite, adresse, \"classeSociale\") VALUES('"+famille.getNom()+"','"+famille.getNationalite()+"','"+famille.getAdresse()+"','"+famille.getClasseSociale()+"')";
-			System.out.println("SQL : " + sqlAjouterMouton);
-			requeteAjouterMouton.execute(sqlAjouterMouton);
+			String sqlAjouterFamille = "INSERT into famille(nom, nationalite, adresse, \"classeSociale\") VALUES('"+famille.getNom()+"','"+famille.getNationalite()+"','"+famille.getAdresse()+"','"+famille.getClasseSociale()+"')";
+			System.out.println("SQL : " + sqlAjouterFamille);
+			requeteAjouterFamille.execute(sqlAjouterFamille);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+	}
+	public void modifierFamille(Famille famille) {
+		System.out.println("FamilleDAO.modifierFamille()");
+		try {
+			Statement requeteAjouterFamille = connection.createStatement();
+			
+			String sqlModifierFamille = "UPDATE famille SET nom = '"+famille.getNom()+"', nationalite = '"+famille.getNationalite()+"' , adresse = '"+famille.getAdresse()+"' , \"classeSociale\" ='"+famille.getClasseSociale()+"' WHERE id = "+famille.getId();
+			System.out.println("SQL : " + sqlModifierFamille);
+			requeteAjouterFamille.execute(sqlModifierFamille);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Famille recupererFamille(int idFamille) {
+		Statement requeteFamille;
+		try {
+			requeteFamille = connection.createStatement();
+			String SQL_RAPPORTER_FAMILLE = "SELECT * FROM famille WHERE id = " + idFamille;
+			System.out.println(SQL_RAPPORTER_FAMILLE);
+			ResultSet curseurFamille = requeteFamille.executeQuery(SQL_RAPPORTER_FAMILLE);
+			curseurFamille.next();
+			int id = curseurFamille.getInt("id");
+			String nom = curseurFamille.getString("nom");
+			String nationalite = curseurFamille.getString("nationalite");
+			String adresse = curseurFamille.getString("adresse");
+			String classeSociale = curseurFamille.getString("classeSociale");
+			System.out.println("Famille " + nom + " de nationalite " + nationalite + " residant  " + adresse + " de classe : " + classeSociale);
+			Famille famille = new Famille(nom, nationalite, adresse, classeSociale);
+			famille.setId(id);
+			return famille;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
 

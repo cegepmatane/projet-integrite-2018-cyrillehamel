@@ -7,6 +7,7 @@ import donnee.FamilleDAO;
 import modele.Famille;
 import vue.NavigateurDesVues;
 import vue.VueAjouterFamille;
+import vue.VueEditerFamille;
 import vue.VueFamille;
 import vue.VueListeFamille;
 
@@ -15,6 +16,7 @@ public class ControleurFamille {
 	private VueFamille vueFamille;
 	private VueListeFamille vueListeFamille;
 	private VueAjouterFamille vueAjouterFamille;
+	private VueEditerFamille vueEditerFamille;
 	FamilleDAO familleDAO =null;
 	public ControleurFamille() {
 		
@@ -26,6 +28,7 @@ public class ControleurFamille {
 		this.vueFamille = navigateur.getVueFamille();
 		this.vueListeFamille = navigateur.getVueListeFamille();
 		this.vueAjouterFamille = navigateur.getVueAjouterFamille();
+		this.vueEditerFamille = navigateur.getVueEditerFamille();
 		this.familleDAO = new FamilleDAO();
 		
 		//test vuelisteFamille
@@ -55,9 +58,24 @@ public class ControleurFamille {
 		this.vueListeFamille.afficherListeFamille(this.familleDAO.listerfamilles());
 		this.navigateur.naviguerVersVueListeFamille();
 	}
+	public void notifierModifierFamille() {
+		System.out.println("ControleurFamille.notifierModifierFamille()");
+		Famille famille = this.navigateur.getVueEditerFamille().demandeFamille();
+		this.familleDAO.modifierFamille(famille);
+		this.vueListeFamille.afficherListeFamille(this.familleDAO.listerfamilles());
+		this.navigateur.naviguerVersVueListeFamille();
+	}
 	public void notifierNaviguerAjouterFamille() {
 		System.out.println("ControleurFamille.notifierNaviguerAjouterFamille()");
 		this.navigateur.naviguerVersVueAjouterFamille();
+	}
+	public void notifierNaviguerEditerFamille(int idFamille)
+	{
+		System.out.println("ControleurMouton.notifierEditerFamille()");
+		
+		this.vueEditerFamille.afficherFamille(this.familleDAO.recupererFamille(idFamille));
+		this.navigateur.naviguerVersVueEditerFamille();
+		
 	}
 		
 }

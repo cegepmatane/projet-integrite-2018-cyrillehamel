@@ -44,10 +44,18 @@ public class VueListeFamille extends Scene {
 		int position = 1 ;
 		for(Famille famille : listeFamille) 
 		{
+			Button actionEditerFamille = new Button("Editer");
+			actionEditerFamille.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent arg0) {
+					controleur.notifierNaviguerEditerFamille(famille.getId());
+				}});
+			
 			grilleFamille.add(new Label(famille.getNom()), 0, position);
 		grilleFamille.add(new Label(famille.getNationalite()), 1, position);
 		grilleFamille.add(new Label(famille.getAdresse()), 2, position);
 		grilleFamille.add(new Label(famille.getClasseSociale()), 3, position);
+		grilleFamille.add(actionEditerFamille, 4, position);
 		position++;
 		}
 		naviguerAjouterFamille.setOnAction(new EventHandler<ActionEvent>() 
