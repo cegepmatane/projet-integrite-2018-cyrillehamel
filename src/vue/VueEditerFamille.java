@@ -31,7 +31,7 @@ public class VueEditerFamille extends Scene  {
 	protected Button actionEnregistrerFamille = null;
 	GridPane grilleListePersonne = new GridPane();
 	public VueEditerFamille() {
-		super(new VBox(), 400, 400);
+		super(new VBox(), 800, 400);
 		VBox panneau = (VBox) this.getRoot();
 		
 		GridPane grilleFamille = new GridPane();
@@ -88,15 +88,34 @@ public class VueEditerFamille extends Scene  {
 	public void afficherListePersonnes(List<Personne> listePersonnes) {
 		this.grilleListePersonne.getChildren().clear();
 		int item = 0;
+		Button actionAjouterPersonne = new Button("Ajouter une personne");
+		actionAjouterPersonne.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				controleur.notifierNaviguerAjouterPersonne();
+			}});
 		for(Personne individu : listePersonnes)
 		{
+			Button actionEditerPersonne = new Button("Editer");
+			actionEditerPersonne.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent arg0) {
+					controleur.notifierNaviguerEditerPersonne();
+				}});
+			Button actionSupprimerPersonne = new Button("Supprimer");
+			actionSupprimerPersonne.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent arg0) {
+					controleur.notifierNaviguerSupprimerPersonne();
+				}});
+			
 			
 			this.grilleListePersonne.add(new Label(individu.getPrenom() + ""), 0, item);
 			this.grilleListePersonne.add(new Label(individu.getNaissance() + ""), 1, item);
 			this.grilleListePersonne.add(new Label(individu.getMail() + ""), 2, item);
-			this.grilleListePersonne.add(new Button("Éditer"), 3, item);
-			this.grilleListePersonne.add(new Button("Effacer"), 4, item);
+			this.grilleListePersonne.add(actionEditerPersonne, 3, item);
+			this.grilleListePersonne.add(actionSupprimerPersonne, 4, item);
 			item++;
-		}
+		}this.grilleListePersonne.add(actionAjouterPersonne, 1, item);
 	}
 }

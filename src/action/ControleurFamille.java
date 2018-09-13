@@ -79,11 +79,31 @@ public class ControleurFamille {
 	}
 	public void notifierNaviguerEditerFamille(int idFamille)
 	{
-		System.out.println("ControleurMouton.notifierEditerFamille()");
+		System.out.println("ControleurFamille.notifierEditerFamille()");
 		this.vueEditerFamille.afficherListePersonnes(this.personneDAO.listerPersonnes(idFamille));
 		this.vueEditerFamille.afficherFamille(this.familleDAO.recupererFamille(idFamille));
 		this.navigateur.naviguerVersVueEditerFamille();
 		
 	}
+	public void notifierNaviguerEditerPersonne()
+	{
+		System.out.println("ControleurFamille.notifierEditerPersonne()");
+		this.navigateur.naviguerVersVueEditerPersonne();
 		
+	}
+	public void notifierNaviguerSupprimerPersonne()
+	{
+		System.out.println("ControleurFamille.notifierNaviguerSupprimerPersonne()");
+		this.navigateur.naviguerVersVueSupprimerPersonne();
+		
+	}
+	public void notifierNaviguerAjouterPersonne()
+	{
+		System.out.println("ControleurFamille.notifierNaviguerAjouterPersonne()");
+		this.navigateur.naviguerVersVueAjouterPersonne();
+		
+	}
+	
+	
+	
 }
