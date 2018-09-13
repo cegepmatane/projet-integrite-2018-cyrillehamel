@@ -39,7 +39,7 @@ public class ControleurFamille {
 		this.vueFamille.afficherFamille(familleTest);
 		
 		this.navigateur.naviguerVersVueListeFamille();		
-		this.navigateur.naviguerVersVueAjouterFamille();		
+		//this.navigateur.naviguerVersVueAjouterFamille();		
 	}
 	
 	private static ControleurFamille instance = null;
@@ -52,7 +52,12 @@ public class ControleurFamille {
 		System.out.println("ControleurFamille.notifierEnregistrerFamille()");
 		Famille famille=this.navigateur.getVueAjouterFamille().demandeFamille();
 		this.familleDAO.ajouterFamille(famille);
+		this.vueListeFamille.afficherListeFamille(this.familleDAO.listerfamilles());
 		this.navigateur.naviguerVersVueListeFamille();
 	}
-	
+	public void notifierNaviguerAjouterFamille() {
+		System.out.println("ControleurFamille.notifierNaviguerAjouterFamille()");
+		this.navigateur.naviguerVersVueAjouterFamille();
+	}
+		
 }

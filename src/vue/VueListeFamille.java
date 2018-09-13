@@ -5,7 +5,10 @@ import java.util.List;
 
 import action.ControleurFamille;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -16,14 +19,12 @@ public class VueListeFamille extends Scene {
 
 	private GridPane grilleFamille = null ;
 	private ControleurFamille controleur = null;
-	
+	private Button naviguerAjouterFamille;
 	public VueListeFamille() {
 		super(new Pane(), 800,400);
 		Pane panneau = (Pane) this.getRoot();
-
-		
 		grilleFamille = new GridPane();
-		
+		this.naviguerAjouterFamille=new Button("Ajouter Famille");
 		
 		
 		
@@ -48,12 +49,21 @@ public class VueListeFamille extends Scene {
 		grilleFamille.add(new Label(famille.getAdresse()), 2, position);
 		grilleFamille.add(new Label(famille.getClasseSociale()), 3, position);
 		position++;
-		}		
+		}
+		naviguerAjouterFamille.setOnAction(new EventHandler<ActionEvent>() 
+		{
+			@Override
+			public void handle(ActionEvent arg0) {
+				controleur.notifierNaviguerAjouterFamille();
+			}	
+		});
+		grilleFamille.add(naviguerAjouterFamille, 1, ++position);
 
 	}
 	
 	public void setControleur(ControleurFamille controleur) {
 		this.controleur=controleur;
 	}
+	
 
 }
