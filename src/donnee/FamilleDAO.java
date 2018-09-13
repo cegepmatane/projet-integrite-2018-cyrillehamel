@@ -12,6 +12,11 @@ import modele.Famille;
 
 public class FamilleDAO {
 
+	private static String BASEDEDONNEES_DRIVER = "org.postgresql.Driver";
+	private static String BASEDEDONNEES_URL = "jdbc:postgresql://localhost:5432/integrite";
+	private static String BASEDEDONNEES_USAGER = "postgres";
+	private static String BASEDEDONNEES_MOTDEPASSE = "test";
+	private Connection connection = null;
 	
 	private List<Famille> simulerListerFamilles()
 	{
@@ -20,24 +25,24 @@ public class FamilleDAO {
 		listeFamilleTest.add(new Famille("trembley", "Canadienne", "602 avenu saint redempteur Matane"," classe moyenne"));
 		return listeFamilleTest;
 	}
-	public List<Famille> listerfamilles()
-	{
-		String BASEDEDONNEES_DRIVER = "org.postgresql.Driver";
-		String BASEDEDONNEES_URL = "jdbc:postgresql://localhost:5432/integrite";
-		String BASEDEDONNEES_USAGER = "postgres";
-		String BASEDEDONNEES_MOTDEPASSE = "test";
+	public FamilleDAO(){
 		
 		try {
 			Class.forName(BASEDEDONNEES_DRIVER);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		List<Famille> listeFamilles=new ArrayList<Famille>();
 		try {
-			Connection connection = DriverManager.getConnection(BASEDEDONNEES_URL, BASEDEDONNEES_USAGER, BASEDEDONNEES_MOTDEPASSE);
-			
-			Statement requeteListeFamille = connection.createStatement();
+			connection = DriverManager.getConnection(BASEDEDONNEES_URL, BASEDEDONNEES_USAGER, BASEDEDONNEES_MOTDEPASSE);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public List<Famille> listerfamilles(){	
+		List<Famille> listeFamilles=new ArrayList<Famille>();
+		Statement requeteListeFamille;
+			try {
+			requeteListeFamille = connection.createStatement();
 			ResultSet curseurListeFamilles = requeteListeFamille.executeQuery("SELECT * FROM famille");
 			while(curseurListeFamilles.next()){
 			int id= curseurListeFamilles.getInt("id");
@@ -50,11 +55,29 @@ public class FamilleDAO {
 			famille.setId(id);
 			listeFamilles.add(famille);
 			}
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		
+		return listeFamilles;
+	}
+	
+	public void ajouterFamille(Famille famille)
+	{
+		System.out.println("FamilleDAO.ajouterFamille()");
+		try {
+			Statement requeteAjouterMouton = connection.createStatement();
+			
+			String sqlAjouterMouton = "INSERT into famille(nom, nationalite, adresse, \"classeSociale\") VALUES('"+famille.getNom()+"','"+famille.getNationalite()+"','"+famille.getAdresse()+"','"+famille.getClasseSociale()+"')";
+			System.out.println("SQL : " + sqlAjouterMouton);
+			requeteAjouterMouton.execute(sqlAjouterMouton);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return listeFamilles;
 	}
 }
 

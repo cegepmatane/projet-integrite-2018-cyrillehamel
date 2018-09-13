@@ -101,16 +101,18 @@ ALTER TABLE ONLY famille ALTER COLUMN id SET DEFAULT nextval('famille_id_seq'::r
 -- Data for Name: famille; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO famille VALUES (1, 'dupont', 'francais', '14 rue du 6 juin , renne', 'classe ouvriere');
-INSERT INTO famille VALUES (2, 'doe', 'etatuniens', '45 becker avenu,  new york', 'classe bourgoisse');
-INSERT INTO famille VALUES (3, 'tremblay', 'quebecois', '612 avenu saint redempteur ,matane', 'classe moyenne');
+INSERT INTO famille VALUES (2, 'doe', 'etatuniens', '45 becker avenu,  new york', 'bourgoise');
+INSERT INTO famille VALUES (1, 'dupont', 'francais', '14 rue du 6 juin , renne', 'moyenne');
+INSERT INTO famille VALUES (4, 'smet', 'belge', '48 rue bist , namur', 'moyenne');
+INSERT INTO famille VALUES (3, 'tremblay', 'quebecois', '612 avenu saint redempteur ,matane', 'moyenne');
+INSERT INTO famille VALUES (5, 'hamel', 'francaise', '845 boulevard dunoix rouen ', 'pauvre');
 
 
 --
 -- Name: famille_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('famille_id_seq', 3, true);
+SELECT pg_catalog.setval('famille_id_seq', 6, true);
 
 
 --

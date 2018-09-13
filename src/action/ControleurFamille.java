@@ -51,7 +51,7 @@ public class ControleurFamille {
 	public void notifierEnregistrerFamille() {
 		System.out.println("ControleurFamille.notifierEnregistrerFamille()");
 		Famille famille=this.navigateur.getVueAjouterFamille().demandeFamille();
-		//this.familleDAO.ajouterFamille();
+		this.familleDAO.ajouterFamille(famille);
 		this.navigateur.naviguerVersVueListeFamille();
 	}
 	
