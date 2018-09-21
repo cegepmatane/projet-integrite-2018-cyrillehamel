@@ -92,7 +92,8 @@ public class VueEditerFamille extends Scene  {
 		actionAjouterPersonne.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				controleur.notifierNaviguerAjouterPersonne();
+				Famille famille =demandeFamille();
+				controleur.notifierNaviguerAjouterPersonne(famille.getId());
 			}});
 		for(Personne individu : listePersonnes)
 		{
@@ -100,12 +101,15 @@ public class VueEditerFamille extends Scene  {
 			actionEditerPersonne.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent arg0) {
+					Famille famille =demandeFamille();
 					controleur.notifierNaviguerEditerPersonne();
+					
 				}});
 			Button actionSupprimerPersonne = new Button("Supprimer");
 			actionSupprimerPersonne.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent arg0) {
+					Famille famille =demandeFamille();
 					controleur.notifierNaviguerSupprimerPersonne();
 				}});
 			

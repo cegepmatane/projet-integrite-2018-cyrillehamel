@@ -44,6 +44,19 @@ public class NavigateurDesVues extends Application {
 	public VueFamille getVueFamille() {
 		return vueFamille;
 	}
+	
+
+	public VueEditerPersonne getVueEditerPersonne() {
+		return vueEditerPersonne;
+	}
+
+	public VueAjouterPersonne getVueAjouterPersonne() {
+		return vueAjouterPersonne;
+	}
+
+	public VueSupprimerPersonne getVueSupprimerPersonne() {
+		return vueSupprimerPersonne;
+	}
 
 	@Override
 	public void start(Stage stade) throws Exception {
@@ -57,6 +70,9 @@ public class NavigateurDesVues extends Application {
 		this.vueListeFamille.setControleur(controleur);
 		this.vueFamille.setControleur(controleur);
 		this.vueEditerFamille.setControleur(controleur);
+		this.vueAjouterPersonne.setControleur(controleur);
+		this.vueEditerPersonne.setControleur(controleur);
+		this.vueSupprimerPersonne.setControleur(controleur);
 	}
 	public void naviguerVersVueListeFamille() {
 		stade.setScene(this.vueListeFamille);

@@ -9,9 +9,12 @@ import modele.Famille;
 import modele.Personne;
 import vue.NavigateurDesVues;
 import vue.VueAjouterFamille;
+import vue.VueAjouterPersonne;
 import vue.VueEditerFamille;
+import vue.VueEditerPersonne;
 import vue.VueFamille;
 import vue.VueListeFamille;
+import vue.VueSupprimerPersonne;
 
 public class ControleurFamille {
 	private NavigateurDesVues navigateur;
@@ -19,6 +22,9 @@ public class ControleurFamille {
 	private VueListeFamille vueListeFamille;
 	private VueAjouterFamille vueAjouterFamille;
 	private VueEditerFamille vueEditerFamille;
+	private VueEditerPersonne vueEditerPersonne;
+	private VueAjouterPersonne vueAjouterPersonne;
+	private VueSupprimerPersonne vueSupprimerPersonne;
 	FamilleDAO familleDAO =null;
 	PersonneDAO personneDAO = null ;
 	public ControleurFamille() {
@@ -32,6 +38,9 @@ public class ControleurFamille {
 		this.vueListeFamille = navigateur.getVueListeFamille();
 		this.vueAjouterFamille = navigateur.getVueAjouterFamille();
 		this.vueEditerFamille = navigateur.getVueEditerFamille();
+		this.vueEditerPersonne = navigateur.getVueEditerPersonne();
+		this.vueAjouterPersonne = navigateur.getVueAjouterPersonne();
+		this.vueSupprimerPersonne = navigateur.getVueSupprimerPersonne();
 		this.familleDAO = new FamilleDAO();
 		this.personneDAO = new PersonneDAO();
 		
@@ -66,6 +75,16 @@ public class ControleurFamille {
 		this.vueListeFamille.afficherListeFamille(this.familleDAO.listerfamilles());
 		this.navigateur.naviguerVersVueListeFamille();
 	}
+	
+	public void notifierEnregistrerPersonne(int idFamille) {
+		System.out.println("ControleurFamille.notifierEnregistrerPersonne()");
+		Personne personne=this.navigateur.getVueAjouterPersonne().demandePersonne();
+		this.personneDAO.ajouterPersonne(personne,idFamille);
+		this.vueEditerFamille.afficherListePersonnes(this.personneDAO.listerPersonnes(idFamille));
+		this.vueEditerFamille.afficherFamille(this.familleDAO.recupererFamille(idFamille));
+		this.navigateur.naviguerVersVueEditerFamille();
+	}
+	
 	public void notifierModifierFamille() {
 		System.out.println("ControleurFamille.notifierModifierFamille()");
 		Famille famille = this.navigateur.getVueEditerFamille().demandeFamille();
@@ -85,6 +104,7 @@ public class ControleurFamille {
 		this.navigateur.naviguerVersVueEditerFamille();
 		
 	}
+	
 	public void notifierNaviguerEditerPersonne()
 	{
 		System.out.println("ControleurFamille.notifierEditerPersonne()");
@@ -97,9 +117,10 @@ public class ControleurFamille {
 		this.navigateur.naviguerVersVueSupprimerPersonne();
 		
 	}
-	public void notifierNaviguerAjouterPersonne()
+	public void notifierNaviguerAjouterPersonne(int idFamille)
 	{
 		System.out.println("ControleurFamille.notifierNaviguerAjouterPersonne()");
+		this.vueAjouterPersonne.recupererIdFamille(idFamille);
 		this.navigateur.naviguerVersVueAjouterPersonne();
 		
 	}

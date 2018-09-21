@@ -70,7 +70,7 @@ public class FamilleDAO {
 		try {
 			Statement requeteAjouterFamille = connection.createStatement();
 			
-			String sqlAjouterFamille = "INSERT into famille(nom, nationalite, adresse, \"classeSociale\") VALUES('"+famille.getNom()+"','"+famille.getNationalite()+"','"+famille.getAdresse()+"','"+famille.getClasseSociale()+"')";
+			String sqlAjouterFamille = "INSERT into famille(nom, nationalite, adresse, classeSociale) VALUES('"+famille.getNom()+"','"+famille.getNationalite()+"','"+famille.getAdresse()+"','"+famille.getClasseSociale()+"')";
 			System.out.println("SQL : " + sqlAjouterFamille);
 			requeteAjouterFamille.execute(sqlAjouterFamille);
 			

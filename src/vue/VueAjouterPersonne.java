@@ -27,6 +27,7 @@ public class VueAjouterPersonne extends Scene  {
 	protected TextField valeurMail;
 	private ControleurFamille controleur = null;
 	protected Button actionEnregistrerPersonne = null;
+	private int idFamille = 0;
 	public VueAjouterPersonne() {
 		super(new VBox(), 400, 400);
 		VBox panneau = (VBox) this.getRoot();
@@ -36,7 +37,8 @@ public class VueAjouterPersonne extends Scene  {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				//controleur.notifierAjouterPersonne();
+				System.out.println(""+idFamille);
+				controleur.notifierEnregistrerPersonne(idFamille);
 				
 			}
 			
@@ -65,7 +67,13 @@ public class VueAjouterPersonne extends Scene  {
 	public void setControleur(ControleurFamille controleur) {
 		this.controleur=controleur;
 	}
-	
+	public void recupererIdFamille(int idFamille) {
+		this.idFamille = idFamille;
+	}
+	public Personne demandePersonne() {
+		Personne personne= new Personne(this.valeurPrenom.getText(),this.valeurNaissance.getText(),this.valeurMail.getText());
+		return personne;
+	}
 	
 	
 }

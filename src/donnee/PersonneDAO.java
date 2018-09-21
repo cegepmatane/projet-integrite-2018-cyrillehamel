@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import modele.Famille;
 import modele.Personne;
 
 public class PersonneDAO {
@@ -68,5 +69,18 @@ public class PersonneDAO {
 		listePersonnes.add(personne);
 		return listePersonnes;
 	}
-	
+	public void ajouterPersonne(Personne personne,int idfamille)
+	{
+		System.out.println("FamilleDAO.ajouterFamille()");
+		try {
+			Statement requeteAjouterPersonne = connection.createStatement();
+			
+			String sqlAjouterPersonne = "INSERT into personne(prenom, naissance, mail, famille) VALUES('"+personne.getPrenom()+"','"+personne.getNaissance()+"','"+personne.getMail()+"',"+idfamille+")";
+			System.out.println("SQL : " + sqlAjouterPersonne);
+			requeteAjouterPersonne.execute(sqlAjouterPersonne);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}	 
 }
