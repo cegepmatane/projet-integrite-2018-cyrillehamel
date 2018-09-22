@@ -96,6 +96,20 @@ public class PersonneDAO {
 			e.printStackTrace();
 		}
 	}
+	public void supprimerPersonne(int idPersonne) {
+		System.out.println("PersonneDAO.supprimerPersonne()");
+		try {
+			Statement requeteSupprimerPersonne = connection.createStatement();
+			
+			String sqlSupprimerPersonne = "DELETE FROM personne WHERE id = "+idPersonne;
+			System.out.println("SQL : " + sqlSupprimerPersonne);
+			requeteSupprimerPersonne.execute(sqlSupprimerPersonne);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public Personne recupererPersonne(int idPersonne) {
 		Statement requetePersonne;

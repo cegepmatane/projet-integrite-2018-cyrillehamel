@@ -21,7 +21,8 @@ import modele.Personne;
 
 public class VueSupprimerPersonne extends Scene  {
 
-	
+	private int idPersonne = 0 ;
+	private int idFamille=0;
 	private ControleurFamille controleur = null;
 	protected Button actionSupprimerPersonne = null;
 	protected Button actionAnnulerSuppression = null;
@@ -34,12 +35,24 @@ public class VueSupprimerPersonne extends Scene  {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				//controleur.notifierAjouterPersonne();
+				controleur.notifierSupprimerPersonne(idPersonne,idFamille);
 				
 			}
 			
 		});
 		actionAnnulerSuppression = new Button("annuler");
+		
+		actionAnnulerSuppression.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				controleur.notifierNaviguerEditerFamille(idFamille);
+				
+			}
+			
+		});
+		
+		
 		
 		
 		grillePersonne.add(actionSupprimerPersonne, 0, 0);
@@ -57,6 +70,10 @@ public class VueSupprimerPersonne extends Scene  {
 
 	public void setControleur(ControleurFamille controleur) {
 		this.controleur=controleur;
+	}
+	public void recupererId(int idPersonne,int idFamille) {
+		this.idFamille = idFamille;
+		this.idPersonne = idPersonne;
 	}
 	
 	
