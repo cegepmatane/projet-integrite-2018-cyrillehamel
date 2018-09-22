@@ -102,7 +102,7 @@ public class VueEditerFamille extends Scene  {
 				@Override
 				public void handle(ActionEvent arg0) {
 					Famille famille =demandeFamille();
-					controleur.notifierNaviguerEditerPersonne();
+					controleur.notifierNaviguerEditerPersonne(individu.getId(),famille.getId());
 					
 				}});
 			Button actionSupprimerPersonne = new Button("Supprimer");

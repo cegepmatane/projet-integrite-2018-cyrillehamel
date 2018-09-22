@@ -71,7 +71,7 @@ public class PersonneDAO {
 	}
 	public void ajouterPersonne(Personne personne,int idfamille)
 	{
-		System.out.println("FamilleDAO.ajouterFamille()");
+		System.out.println("PersonneDAO.ajouterPersonne()");
 		try {
 			Statement requeteAjouterPersonne = connection.createStatement();
 			
@@ -82,5 +82,41 @@ public class PersonneDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}	 
+	}
+	public void modifierPersonne(Personne personne) {
+		System.out.println("PersonneDAO.modifierPersonne()");
+		try {
+			Statement requeteModifierPersonne = connection.createStatement();
+			
+			String sqlModifierPersonne = "UPDATE personne SET prenom = '"+personne.getPrenom()+"', naissance = '"+personne.getNaissance()+"' , mail = '"+personne.getMail()+"'  WHERE id = "+personne.getId();
+			System.out.println("SQL : " + sqlModifierPersonne);
+			requeteModifierPersonne.execute(sqlModifierPersonne);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Personne recupererPersonne(int idPersonne) {
+		Statement requetePersonne;
+		try {
+			requetePersonne = connection.createStatement();
+			String SQL_RAPPORTER_PERSONNE = "SELECT * FROM personne WHERE id = " + idPersonne;
+			System.out.println(SQL_RAPPORTER_PERSONNE);
+			ResultSet curseurPersonne = requetePersonne.executeQuery(SQL_RAPPORTER_PERSONNE);
+			curseurPersonne.next();
+			int id = curseurPersonne.getInt("id");
+			String prenom = curseurPersonne.getString("prenom");
+			String naissance = curseurPersonne.getString("naissance");
+			String mail = curseurPersonne.getString("mail");
+			System.out.println("Pesonne " + prenom + " nee le " + naissance + " mail :  " + mail );
+			Personne personne = new Personne(prenom, naissance, mail);
+			personne.setId(id);
+			return personne;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
+

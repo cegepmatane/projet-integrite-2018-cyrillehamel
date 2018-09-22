@@ -92,6 +92,16 @@ public class ControleurFamille {
 		this.vueListeFamille.afficherListeFamille(this.familleDAO.listerfamilles());
 		this.navigateur.naviguerVersVueListeFamille();
 	}
+	
+	public void notifierModifierPersonne(int idFamille) {
+		System.out.println("ControleurFamille.notifierModifierPersonne()");
+		Personne personne = this.navigateur.getVueEditerPersonne().demandePersonne();
+		this.personneDAO.modifierPersonne(personne);
+		this.vueEditerFamille.afficherListePersonnes(this.personneDAO.listerPersonnes(idFamille));
+		this.vueEditerFamille.afficherFamille(this.familleDAO.recupererFamille(idFamille));
+		this.navigateur.naviguerVersVueEditerFamille();
+	}
+	
 	public void notifierNaviguerAjouterFamille() {
 		System.out.println("ControleurFamille.notifierNaviguerAjouterFamille()");
 		this.navigateur.naviguerVersVueAjouterFamille();
@@ -105,9 +115,11 @@ public class ControleurFamille {
 		
 	}
 	
-	public void notifierNaviguerEditerPersonne()
+	public void notifierNaviguerEditerPersonne(int idPersonne,int idFamille)
 	{
 		System.out.println("ControleurFamille.notifierEditerPersonne()");
+		this.vueEditerPersonne.recupererIdFamille(idFamille);
+		this.vueEditerPersonne.afficherPersonne(this.personneDAO.recupererPersonne(idPersonne));
 		this.navigateur.naviguerVersVueEditerPersonne();
 		
 	}

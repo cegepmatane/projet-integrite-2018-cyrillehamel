@@ -20,8 +20,9 @@ import modele.Famille;
 import modele.Personne;
 
 public class VueEditerPersonne extends Scene  {
-
 	
+	private int idFamille = 0;
+	protected int idpersone=0;
 	protected TextField valeurPrenom;
 	protected TextField valeurNaissance;
 	protected TextField valeurMail;
@@ -36,7 +37,7 @@ public class VueEditerPersonne extends Scene  {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				//controleur.notifierModifierPersonne();
+				controleur.notifierModifierPersonne(idFamille);
 				
 			}
 			
@@ -64,6 +65,22 @@ public class VueEditerPersonne extends Scene  {
 
 	public void setControleur(ControleurFamille controleur) {
 		this.controleur=controleur;
+	}
+	
+	public void afficherPersonne(Personne personne) {
+		this.idpersone=personne.getId();
+		this.valeurPrenom.setText(personne.getPrenom());
+		this.valeurNaissance.setText(personne.getNaissance());
+		this.valeurMail.setText(personne.getMail());
+
+	}
+	public void recupererIdFamille(int idFamille) {
+		this.idFamille = idFamille;
+	}
+	public Personne demandePersonne() {
+		Personne personne= new Personne(this.valeurPrenom.getText(),this.valeurNaissance.getText(),this.valeurMail.getText());
+		personne.setId(idpersone);
+		return personne;
 	}
 	
 	
