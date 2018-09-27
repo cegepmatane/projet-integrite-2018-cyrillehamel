@@ -70,7 +70,7 @@ public class FamilleDAO {
 		try {
 			Statement requeteAjouterFamille = connection.createStatement();
 			
-			String sqlAjouterFamille = "INSERT into famille(nom, nationalite, adresse, classeSociale) VALUES('"+famille.getNom()+"','"+famille.getNationalite()+"','"+famille.getAdresse()+"','"+famille.getClasseSociale()+"')";
+			String sqlAjouterFamille = "INSERT into famille(nom, nationalite, adresse, classesociale) VALUES('"+famille.getNom()+"','"+famille.getNationalite()+"','"+famille.getAdresse()+"','"+famille.getClasseSociale()+"')";
 			System.out.println("SQL : " + sqlAjouterFamille);
 			requeteAjouterFamille.execute(sqlAjouterFamille);
 			
@@ -84,7 +84,7 @@ public class FamilleDAO {
 		try {
 			Statement requeteAjouterFamille = connection.createStatement();
 			
-			String sqlModifierFamille = "UPDATE famille SET nom = '"+famille.getNom()+"', nationalite = '"+famille.getNationalite()+"' , adresse = '"+famille.getAdresse()+"' , \"classeSociale\" ='"+famille.getClasseSociale()+"' WHERE id = "+famille.getId();
+			String sqlModifierFamille = "UPDATE famille SET nom = '"+famille.getNom()+"', nationalite = '"+famille.getNationalite()+"' , adresse = '"+famille.getAdresse()+"' , classesociale ='"+famille.getClasseSociale()+"' WHERE id = "+famille.getId();
 			System.out.println("SQL : " + sqlModifierFamille);
 			requeteAjouterFamille.execute(sqlModifierFamille);
 			
