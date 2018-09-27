@@ -97,6 +97,44 @@ $$;
 
 ALTER FUNCTION public.journaliser() OWNER TO postgres;
 
+--
+-- Name: surveiller(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.surveiller() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE 
+	nombreFamilles int;
+    checksumNoms text;
+    nombrePersonnes int;
+    checksumPrenoms text;
+	uneFamille Record;
+BEGIN
+	
+
+	SELECT  COUNT(nom) into nombreFamilles FROM famille;
+    SELECT MD5(string_agg(nom,'-')) into checksumNoms FROM famille;
+    INSERT INTO public."surveillanceFamille"( moment, "nombreFamille", "checksumNom") VALUES(NOW(),nombreFamilles, checksumNoms);
+
+   SELECT COUNT(prenom) into nombrePersonnes FROM personne;
+   SELECT MD5(string_agg(prenom,'-')) into checksumPrenoms FROM personne;
+   INSERT INTO public."surveillancePersonne"( moment, "nombrePersonne", "checksumPrenom") VALUES(NOW(),nombrePersonnes, checksumPrenoms);
+   
+	FOR uneFamille IN SELECT * FROM famille
+    LOOP
+   SELECT COUNT(prenom) into nombrePersonnes FROM personne,famille WHERE personne.famille = uneFamille.id  ;
+   SELECT MD5(string_agg(prenom,'-')) into checksumPrenoms FROM personne,famille WHERE personne.famille = uneFamille.id ;
+	INSERT INTO public."surveillancePersonneParFamille"( moment, "nombrePersonne", "checksumPrenom")VALUES (NOW(), nombrePersonnes, checksumPrenoms);
+	   
+    END LOOP;
+						
+END
+$$;
+
+
+ALTER FUNCTION public.surveiller() OWNER TO postgres;
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -210,6 +248,111 @@ ALTER SEQUENCE public.personne_id_seq OWNED BY public.personne.id;
 
 
 --
+-- Name: surveillanceFamille; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."surveillanceFamille" (
+    id integer NOT NULL,
+    moment time with time zone,
+    "nombreFamille" integer,
+    "checksumNom" text
+);
+
+
+ALTER TABLE public."surveillanceFamille" OWNER TO postgres;
+
+--
+-- Name: surveillanceFamille_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."surveillanceFamille_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."surveillanceFamille_id_seq" OWNER TO postgres;
+
+--
+-- Name: surveillanceFamille_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."surveillanceFamille_id_seq" OWNED BY public."surveillanceFamille".id;
+
+
+--
+-- Name: surveillancePersonne; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."surveillancePersonne" (
+    id integer NOT NULL,
+    moment time with time zone,
+    "nombrePersonne" integer,
+    "checksumPrenom" text
+);
+
+
+ALTER TABLE public."surveillancePersonne" OWNER TO postgres;
+
+--
+-- Name: surveillancePersonneParFamille; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."surveillancePersonneParFamille" (
+    id integer NOT NULL,
+    moment time with time zone,
+    "nombrePersonne" integer,
+    "checksumPrenom" text
+);
+
+
+ALTER TABLE public."surveillancePersonneParFamille" OWNER TO postgres;
+
+--
+-- Name: surveillancePersonneParFamille_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."surveillancePersonneParFamille_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."surveillancePersonneParFamille_id_seq" OWNER TO postgres;
+
+--
+-- Name: surveillancePersonneParFamille_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."surveillancePersonneParFamille_id_seq" OWNED BY public."surveillancePersonneParFamille".id;
+
+
+--
+-- Name: surveillancePersonne_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."surveillancePersonne_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."surveillancePersonne_id_seq" OWNER TO postgres;
+
+--
+-- Name: surveillancePersonne_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."surveillancePersonne_id_seq" OWNED BY public."surveillancePersonne".id;
+
+
+--
 -- Name: famille id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -228,6 +371,27 @@ ALTER TABLE ONLY public.journal ALTER COLUMN id SET DEFAULT nextval('public.jour
 --
 
 ALTER TABLE ONLY public.personne ALTER COLUMN id SET DEFAULT nextval('public.personne_id_seq'::regclass);
+
+
+--
+-- Name: surveillanceFamille id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."surveillanceFamille" ALTER COLUMN id SET DEFAULT nextval('public."surveillanceFamille_id_seq"'::regclass);
+
+
+--
+-- Name: surveillancePersonne id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."surveillancePersonne" ALTER COLUMN id SET DEFAULT nextval('public."surveillancePersonne_id_seq"'::regclass);
+
+
+--
+-- Name: surveillancePersonneParFamille id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."surveillancePersonneParFamille" ALTER COLUMN id SET DEFAULT nextval('public."surveillancePersonneParFamille_id_seq"'::regclass);
 
 
 --
@@ -282,6 +446,59 @@ SELECT pg_catalog.setval('public.personne_id_seq', 5, true);
 
 
 --
+-- Data for Name: surveillanceFamille; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public."surveillanceFamille" VALUES (1, '15:54:01.553489-04', 4, 'b7cc87dac80031299e653a3c22f0c826');
+INSERT INTO public."surveillanceFamille" VALUES (3, '19:08:00.670442-04', 4, 'b7cc87dac80031299e653a3c22f0c826');
+INSERT INTO public."surveillanceFamille" VALUES (4, '19:14:04.566746-04', 4, 'b7cc87dac80031299e653a3c22f0c826');
+
+
+--
+-- Name: surveillanceFamille_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."surveillanceFamille_id_seq"', 4, true);
+
+
+--
+-- Data for Name: surveillancePersonne; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public."surveillancePersonne" VALUES (1, '15:54:01.553489-04', 3, 'dc13b81d060498ea8d9e9d36654f7134');
+INSERT INTO public."surveillancePersonne" VALUES (3, '19:08:00.670442-04', 3, 'dc13b81d060498ea8d9e9d36654f7134');
+INSERT INTO public."surveillancePersonne" VALUES (4, '19:14:04.566746-04', 3, 'dc13b81d060498ea8d9e9d36654f7134');
+
+
+--
+-- Data for Name: surveillancePersonneParFamille; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public."surveillancePersonneParFamille" VALUES (1, '19:08:00.670442-04', 3, '07a6de926811ba024e7733d7e40d73fe');
+INSERT INTO public."surveillancePersonneParFamille" VALUES (2, '19:08:00.670442-04', 3, '07a6de926811ba024e7733d7e40d73fe');
+INSERT INTO public."surveillancePersonneParFamille" VALUES (3, '19:08:00.670442-04', 3, '07a6de926811ba024e7733d7e40d73fe');
+INSERT INTO public."surveillancePersonneParFamille" VALUES (4, '19:08:00.670442-04', 3, '07a6de926811ba024e7733d7e40d73fe');
+INSERT INTO public."surveillancePersonneParFamille" VALUES (5, '19:14:04.566746-04', 4, 'ed68eff9b1c1285e790bf6cec4a0b76b');
+INSERT INTO public."surveillancePersonneParFamille" VALUES (6, '19:14:04.566746-04', 4, '69ff74404087992dfb318436db24f8c7');
+INSERT INTO public."surveillancePersonneParFamille" VALUES (7, '19:14:04.566746-04', 0, NULL);
+INSERT INTO public."surveillancePersonneParFamille" VALUES (8, '19:14:04.566746-04', 4, 'ca664c57ec5525bfbc972aa51593722b');
+
+
+--
+-- Name: surveillancePersonneParFamille_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."surveillancePersonneParFamille_id_seq"', 8, true);
+
+
+--
+-- Name: surveillancePersonne_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."surveillancePersonne_id_seq"', 4, true);
+
+
+--
 -- Name: famille famille_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -303,6 +520,30 @@ ALTER TABLE ONLY public.journal
 
 ALTER TABLE ONLY public.personne
     ADD CONSTRAINT personne_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: surveillanceFamille surveillanceFamille_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."surveillanceFamille"
+    ADD CONSTRAINT "surveillanceFamille_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: surveillancePersonneParFamille surveillancePersonneParFamille_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."surveillancePersonneParFamille"
+    ADD CONSTRAINT "surveillancePersonneParFamille_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: surveillancePersonne surveillancePersonne_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."surveillancePersonne"
+    ADD CONSTRAINT "surveillancePersonne_pkey" PRIMARY KEY (id);
 
 
 --
