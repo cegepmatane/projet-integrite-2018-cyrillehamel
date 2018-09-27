@@ -237,7 +237,6 @@ ALTER TABLE ONLY public.personne ALTER COLUMN id SET DEFAULT nextval('public.per
 INSERT INTO public.famille VALUES (4, 'smet', 'belge', '48 rue bist , namur', 'moyenne');
 INSERT INTO public.famille VALUES (3, 'tremblay', 'quebecois', '612 avenu saint redempteur ,matane', 'moyenne');
 INSERT INTO public.famille VALUES (5, 'hamel', 'francaise', '845 boulevard dunoix rouen ', 'pauvre');
-INSERT INTO public.famille VALUES (2, 'doe', 'etatuniens', '45 becker avenu,  new york', 'bourgoise');
 INSERT INTO public.famille VALUES (1, 'duponts', 'francaise', '14 rue du 6 juin , rennes', 'moyennes');
 
 
@@ -256,13 +255,14 @@ INSERT INTO public.journal VALUES (1, '2018-09-27 13:49:26.235821-04', 'MODIFIER
 INSERT INTO public.journal VALUES (2, '2018-09-27 14:05:39.575826-04', 'MODIFIER', '{dupont,francais,14 rue du 6 juin , renne,moyenne} -> {duponts,francaise,14 rue du 6 juin , rennes,moyennes}', 'famille');
 INSERT INTO public.journal VALUES (3, '2018-09-27 14:06:23.24003-04', 'AJOUTER', '{} -> {test,test,test,test}', 'famille');
 INSERT INTO public.journal VALUES (4, '2018-09-27 14:13:01.679974-04', 'EFFACER', '{test,test,test,test} -> {}', 'famille');
+INSERT INTO public.journal VALUES (5, '2018-09-27 14:35:19.397851-04', 'EFFACER', '{doe,etatuniens,45 becker avenu,  new york,bourgoise} -> {}', 'famille');
 
 
 --
 -- Name: journal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.journal_id_seq', 4, true);
+SELECT pg_catalog.setval('public.journal_id_seq', 5, true);
 
 
 --
@@ -272,7 +272,6 @@ SELECT pg_catalog.setval('public.journal_id_seq', 4, true);
 INSERT INTO public.personne VALUES (2, 'jean', '10/12/1998', 'jean@gmail.com', 1);
 INSERT INTO public.personne VALUES (3, 'michel', '15/11/1989', 'michelTremblay@tutanota.org', 3);
 INSERT INTO public.personne VALUES (4, 'hefring', '26/06/1992', NULL, 4);
-INSERT INTO public.personne VALUES (5, 'toto', '10/12/2014', 'toto@gmail.com', 2);
 
 
 --
@@ -332,7 +331,7 @@ CREATE TRIGGER evenementmodifierfamille BEFORE UPDATE ON public.famille FOR EACH
 --
 
 ALTER TABLE ONLY public.personne
-    ADD CONSTRAINT onefamille_to_manypersonne FOREIGN KEY (famille) REFERENCES public.famille(id);
+    ADD CONSTRAINT onefamille_to_manypersonne FOREIGN KEY (famille) REFERENCES public.famille(id) ON DELETE CASCADE;
 
 
 --
